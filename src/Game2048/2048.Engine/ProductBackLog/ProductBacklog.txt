@@ -1,0 +1,8 @@
+﻿- Implement a minimal game board API, capable of Displaying the board (printing to standard output is fine)
+- Implement a minimal game board API, capable of Reading/writting tiles on the board
+- Implement a minimal game board API, capable of Moving tiles in any valid direction
+
+    
+    
+    
+
