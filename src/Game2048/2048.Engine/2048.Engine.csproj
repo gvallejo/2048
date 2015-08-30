@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -42,14 +43,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI\AIModule.cs" />
     <Compile Include="AI\IAIModule.cs" />
+    <Compile Include="AI\ITileGenerator.cs" />
+    <Compile Include="AI\RandomGenerator.cs" />
+    <Compile Include="AI\TileGenerator.cs" />
+    <Compile Include="Game\AccessorType.cs" />
     <Compile Include="Game\Board.cs" />
     <Compile Include="Game\GameEngine.cs" />
     <Compile Include="Game\IBoard.cs" />
     <Compile Include="Game\IGameEngine.cs" />
     <Compile Include="Game\IMoveProcessor.cs" />
+    <Compile Include="Game\ITileAccessor.cs" />
     <Compile Include="Game\MoveProcessor.cs" />
+    <Compile Include="Game\ReadDirection.cs" />
     <Compile Include="Game\Stack2048.cs" />
+    <Compile Include="Game\TileAccessor.cs" />
     <Compile Include="IO\GameInput.cs" />
     <Compile Include="IO\GameOutput.cs" />
     <Compile Include="IO\IGameInput.cs" />

@@ -5,6 +5,7 @@ using Ninject.Activation;
 using Ninject.Modules;
 using _2048.Engine.IO;
 using _2048.Engine.Game;
+using _2048.Engine.AI;
 
 namespace WindowsFormsClient.DependencyInjection
 {
@@ -28,6 +29,8 @@ namespace WindowsFormsClient.DependencyInjection
             Bind<IGameInput>().To<GameInput>();
             Bind<IGameOutput>().To<GameOutput>();
             Bind<IMoveProcessor>().To<MoveProcessor>();
+            Bind<IAIModule>().To<AIModule>();
+            Bind<ITileGenerator>().To<TileGenerator>();
 
             Bind<IGameEngine>().ToProvider(new GameEngineProvider());
 
@@ -38,8 +41,11 @@ namespace WindowsFormsClient.DependencyInjection
         {
             protected override GameEngine CreateInstance(IContext context)
             {
-                return new GameEngine(context.Kernel.Get<IBoard>(), context.Kernel.Get<IMoveProcessor>(),
-                    null, context.Kernel.Get<IGameInput>(), context.Kernel.Get<IGameOutput>());
+                IBoard board = context.Kernel.Get<IBoard>();
+
+                return new GameEngine(board, 
+                    context.Kernel.Get<IMoveProcessor>(new [] {new ConstructorArgument("board", board) }),
+                   context.Kernel.Get<IAIModule>() , context.Kernel.Get<IGameInput>(), context.Kernel.Get<IGameOutput>());
             }
         }
 

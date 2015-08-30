@@ -12,6 +12,7 @@ using WindowsFormsClient.DependencyInjection;
 
 namespace WindowsFormsClient
 {
+    delegate void PaintBoardCallback(int[,] tiles);
     public partial class Form1 : Form
     {
         IGameEngine _gameEngine;
@@ -31,9 +32,9 @@ namespace WindowsFormsClient
             _gameEngine.NewGame();
            
             //Initializing some tiles
-            _gameEngine.SetTile(0, 0, 2); _gameEngine.SetTile(0, 1, 2); _gameEngine.SetTile(0, 2, 0); _gameEngine.SetTile(0, 3, 4);
-            _gameEngine.SetTile(1, 0, 4); _gameEngine.SetTile(1, 1, 2); _gameEngine.SetTile(1, 2, 4); _gameEngine.SetTile(1, 3, 4);
-            _gameEngine.SetTile(2, 0, 2); _gameEngine.SetTile(2, 1, 2); _gameEngine.SetTile(2, 2, 0); _gameEngine.SetTile(2, 3, 2);
+            //_gameEngine.SetTile(0, 0, 2); _gameEngine.SetTile(0, 1, 2); _gameEngine.SetTile(0, 2, 0); _gameEngine.SetTile(0, 3, 4);
+            //_gameEngine.SetTile(1, 0, 4); _gameEngine.SetTile(1, 1, 2); _gameEngine.SetTile(1, 2, 4); _gameEngine.SetTile(1, 3, 4);
+            //_gameEngine.SetTile(2, 0, 2); _gameEngine.SetTile(2, 1, 2); _gameEngine.SetTile(2, 2, 0); _gameEngine.SetTile(2, 3, 2);
         }
 
         void Output_OnBoardChange(object sender, EventArgs args)
@@ -43,18 +44,30 @@ namespace WindowsFormsClient
         }
 
 
-        private void PaintBoard(int[,] tiles)
+        
+
+        public void PaintBoard(int[,] tiles)
         {
-            for (int i = 0; i < 4; i++)
+
+            if (this.InvokeRequired)
             {
-                for (int j = 0; j < 4; j++)
+                PaintBoardCallback d = new PaintBoardCallback(PaintBoard);
+                this.Invoke(d, new object[] { tiles });
+            }
+            else
+            {
+                for (int i = 0; i < 4; i++)
                 {
-                    if (tiles[i, j] == 0)
-                        _labels[i, j].Text = string.Empty;
-                    else
-                        _labels[i, j].Text = tiles[i, j].ToString();
+                    for (int j = 0; j < 4; j++)
+                    {
+                        if (tiles[i, j] == 0)
+                            _labels[i, j].Text = string.Empty;
+                        else
+                            _labels[i, j].Text = tiles[i, j].ToString();
+                    }
                 }
             }
+
         }
 
         private void InitializeBoard()

@@ -43,7 +43,7 @@ namespace _2048.UnitTests.Game
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    if(_board.Tiles[i,j] != _board.Rows[i][j])
+                    if(_board.Tiles[i,j] != _board.RowsLeftToRight[i][j])
                     {
                         return false;                       
                     }
@@ -60,7 +60,7 @@ namespace _2048.UnitTests.Game
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    if (_board.Tiles[i, j] != _board.Cols[j][i])
+                    if (_board.Tiles[i, j] != _board.ColsTopDown[j][i])
                     {
                         return false;
                     }

@@ -9,9 +9,15 @@ namespace _2048.Engine.Game
 {
     public interface IBoard
     {
-        List<List<int>> Rows { get; }
-        List<List<int>> Cols { get; }
+        List<ITileAccessor> RowsLeftToRight { get; }
+        List<ITileAccessor> RowsRightToLeft { get; }
+        List<ITileAccessor> ColsTopDown { get; }
+        List<ITileAccessor> ColsBottomUp { get; }
+
+        List<Tuple<int, int>> BlankTiles { get; }
+
         int[,] Tiles { get; }
         void SetTiles(int[,] tiles);
+        void SetTile(int r, int c, int value);
     }
 }

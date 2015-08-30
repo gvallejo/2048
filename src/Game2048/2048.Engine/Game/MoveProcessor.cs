@@ -23,23 +23,62 @@ namespace _2048.Engine.Game
 
         public void ProcessMove(MoveDirection move)
         {
+           
+            
             switch (move)
             {
                 case MoveDirection.UP:
-                    ProcessUpMove();
+                    ProcessMove(this.Board.ColsTopDown);
                     break;
                 case MoveDirection.DOWN:
-                    ProcessDownMove();
+                    ProcessMove(this.Board.ColsBottomUp);
                     break;
                 case MoveDirection.LEFT:
-                    ProcessLeftMove();
+                    ProcessMove(this.Board.RowsLeftToRight);
                     break;
                 case MoveDirection.RIGHT:
-                    ProcessRightMove();
+                    ProcessMove(this.Board.RowsRightToLeft);
                     break;
                 default:
                     break;
             }
+            SiAuto.Main.LogMessage("first element : {0}", this.Board.RowsLeftToRight[0][0]);
+            SiAuto.Main.LogMessage(string.Join<Tuple<int,int>>(" tile:", this.Board.BlankTiles));
+        }
+
+        protected void ProcessMove(List<ITileAccessor> tilesAccessors)
+        {
+            int r = 0, w =0;
+            
+            foreach (var tilesAccessor in tilesAccessors)
+            {
+                //intialize r(read) w(write) pointers
+                r = w = 0;
+                while (r < 4)
+                {
+                    if (r == w)
+                    {
+                        r++;
+                        continue;
+                    }
+                    else if ((tilesAccessor[r] == 0) || (tilesAccessor[w] == 0))
+                    {
+                        tilesAccessor[w] = tilesAccessor[r] + tilesAccessor[w];
+                        tilesAccessor[r] = 0;
+                        r++;
+                        continue;
+                    }
+                    else if (tilesAccessor[r] == tilesAccessor[w])
+                    {
+                        tilesAccessor[w] = tilesAccessor[r] + tilesAccessor[w];
+                        tilesAccessor[r] = 0;
+                        w++;
+                    }
+                    else
+                        w++;
+                }
+            }
+
         }
 
         protected void ProcessLeftMove()

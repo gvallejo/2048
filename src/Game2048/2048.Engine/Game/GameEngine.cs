@@ -52,17 +52,17 @@ namespace _2048.Engine.Game
                 if (this.AIModule != null)
                 {
                     this.AIModule.GenerateRandomTile(ref _board);
-                    this.AIModule.GenerateRandomTile(ref _board);
+                   // this.AIModule.GenerateRandomTile(ref _board);
                 }
 
                 this.Output.SetBoard(_board);
 
-                if (this.AIModule != null)
-                {
-                    if (this.AIModule.IsGameOver(_board))
-                        if (this.OnGameOver != null)
-                            this.OnGameOver(null, new EventArgs());
-                }
+                //if (this.AIModule != null)
+                //{
+                //    if (this.AIModule.IsGameOver(_board))
+                //        if (this.OnGameOver != null)
+                //            this.OnGameOver(null, new EventArgs());
+                //}
                 /*------------------------------------*/
             }
             catch (Exception ex)
@@ -105,7 +105,7 @@ namespace _2048.Engine.Game
 
         public virtual void SetTile(int r, int c, int value)
         {
-            _board.Tiles[r, c] = value;
+            _board.SetTile(r,c,value);
             this.Output.SetBoard(_board);
         }
 
